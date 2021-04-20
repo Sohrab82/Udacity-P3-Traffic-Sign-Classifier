@@ -40,7 +40,9 @@ The dataset contains about 50000 images of traffic signs, divived into 34799 tra
 Training, vaidation, and testing class distributions can be seen in the following pictures. As you can see, the number of samples in each class are different than another.
 
 ![alt text][image2]
+
 ![alt text][image3]
+
 ![alt text][image4]
 
 To get an understanding of the images within each class, 25 samples from 80km speed limit class have been plotted below.
