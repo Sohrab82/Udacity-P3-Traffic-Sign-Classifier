@@ -18,7 +18,7 @@
 In this project, two models, Lenet and a inception like model, have been used to classify traffic signs. [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset) has been used to train and validate the models
 
 The project is done with Tensorflow 2.x and keras. Image augmentation code implemented but not used.
-Evaluation of models on a test set shows that an accuracy of 0.9291 and 0.9562 can be achieved with Lenet and Inception models respectively.
+Evaluation of models on a test set shows that an accuracy of 0.9071 and 0.9633 can be achieved with Lenet and Inception models respectively.
 
 
 ### The Project
@@ -164,13 +164,13 @@ ________________________________________________________________________________
 
 ### Training & Validation
 
-Each model is trained with batch_size=64 and Adam optimizer with learning rate of 0.001 for 30 epochs. After the 30 epochs, not much change was oberverd in training and validation. Larger learning rates failed to train the model as they could not get the model to start learning (training accuracy stuck at < 10%).
+Each model is trained with batch_size=64 and Adam optimizer with learning rate of 0.001 for 50 epochs. After the 50 epochs, not much change was oberverd in training and validation. Larger learning rates failed to train the model as they could not get the model to start learning (training accuracy stuck at < 10%).
 
 ```
 model_lenet.compile(optimizer=Adam(learning_rate=0.001), loss=SparseCategoricalCrossentropy(from_logits=True), metrics=['accuracy'])
 history_lenet = model_lenet.fit(X_train, y_train, batch_size=64, epochs=30, shuffle=True, validation_data=(X_valid, y_valid), verbose=1)
 ```
-Evaluation of models on a test set shows that an accuracy of 0.9291 and 0.9562 can be achieved with Lenet and Inception models respectively.
+Evaluation of models on a test set shows that an accuracy of 0.9183 and 0.9643 can be achieved with Lenet and Inception models respectively.
 Training and validation accuracy for both models are presented below:
 
 ![alt text][image5]
@@ -180,9 +180,12 @@ Training and validation accuracy for both models are presented below:
 ### New Images
 
 Below, the prediction results for seven new images are shown. The images are downloaded from internet and in some cases noise or background colors have been added. 
-It can be seen that in the fifth image, the background of the image has resulted in a wrong prediction (`speed limit 30km/h`) while the second guess is the correct prediction (`Road work`).
 
-Also, in the last two images the prediction (`speed limit 30km/h`) is wrong which can be linked to having too many samples of `speed limit 30km/h` in the training data compared to `Road narrows on the right` and other classes.
+The first 4 samples have been predicted correctly dispite the noise added to the third sign.
+
+The fifth image is cathegorized incorrectly which can be due to the background patterns of the image. The prediction, `speed limit 30km/h`, can be linked to higher number of samples for this class compared to the correct class `Road work`, i.e bias in the training set. The second guess, though with very small probability, is actually correct.
+
+In the last image, the manipulation of the background colors might result in a wrong prediction (`double curve` for example in one case depending on the initial weight values) while the same sign with white background color (picture 6) has been classified correctly.
 
 ![alt text][image7]
 
